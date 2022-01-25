@@ -8,6 +8,10 @@
     background-color: #FF893D;
 }
 
+.color-btn:active{
+    background-color: #FF893D;
+}
+
 .font-color{
     color: #FF893D;
 }
