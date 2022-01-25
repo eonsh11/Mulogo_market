@@ -11,6 +11,6 @@ class PostModel(models.Model):
     user = models.ForeignKey(UserModel, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=256)
-    photo = models.ImageField('상품', upload_to='iterms', blank=True)
+    photo = models.URLField(("상품이미지"), max_length=200)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
