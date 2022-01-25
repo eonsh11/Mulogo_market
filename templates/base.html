@@ -35,52 +35,43 @@
   </head>
 
   <body>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-transparent border-bottom">
-      <div class="container-sm">
-        <a class="navbar-brand" href="/">다앙근마켓</a>
-        {% if user.is_authenticated %}
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/user">
-                  친구
-                  <span class="sr-only"></span></a>
-              </li>
-            </ul>
-          </div>
-        {% endif %}
-        <form class="form-inline my-2 my-lg-0">
-          {% if not user.is_authenticated %}
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="/sign-in">
-                  Sign In
-                  <span class="sr-only"></span></a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/sign-up">
-                  Sign Up
-                  <span class="sr-only"></span></a>
-              </li>
-            </ul>
-          {% else %}
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <span class="nav-link disabled">
-                  {{ user.username }}님 반갑습니다!
-                </span>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/logout">
-                  로그아웃
-                </a>
-              </li>
-            </ul>
-          {% endif %}
-        </form>
-      </div>
-    </nav>
-    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light"></nav>
+    {% if user.is_authenticated %}
+      <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-transparent border-bottom">
+        <div class="container-sm">
+          <a class="navbar-brand" href="/">다앙근마켓</a>
+          <form class="form-inline my-2 my-lg-0">
+            {% if not user.is_authenticated %}
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="/sign-in">
+                    Sign In
+                    <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/sign-up">
+                    Sign Up
+                    <span class="sr-only"></span></a>
+                </li>
+              </ul>
+            {% else %}
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <span class="nav-link disabled">
+                    {{ user.username }}님 반갑습니다!
+                  </span>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="/logout">
+                    로그아웃
+                  </a>
+                </li>
+              </ul>
+            {% endif %}
+          </form>
+        </div>
+      </nav>
+      <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light"></nav>
+    {% endif %}
     {% block content %}{% endblock %}
   </body>
 
