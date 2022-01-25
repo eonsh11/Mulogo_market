@@ -12,7 +12,17 @@ def home(request):
 
 
 def main(request):
-    return render(request, 'post/home.html')
+    if request.method =='GET':
+        # 로그인한 사용자인 것을 알려주다.
+        user = request.user.is_authenticated
+        # 만약 로그인한 사용자가 맞다면 home화면으로 넘어갈 것이다.
+        if user:
+            # TweetModel에 저장한 모든 데이터들을 만들어진 순서(최신순)대로 정렬해서 불러오겠다.
+            all_post = PostModel.objects.all().order_by('-created_at')
+            return render(request, 'post/home.html', {'post': all_post})
+        # 로그인한 사용자가 아니라면 다시 로그인화면으로 갈 것이다.
+        else:
+            return redirect('/sign-in')
 
 
 def create_post(request):
@@ -29,3 +39,6 @@ def create_post(request):
             user=user, title=title, photo=photo, content=content)
         my_tweet.save()
         return redirect('/main')
+
+
+
