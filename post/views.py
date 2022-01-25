@@ -1,6 +1,8 @@
 from django.http import request
 from django.shortcuts import render, redirect
 from .models import PostModel
+from django.contrib.auth.decorators import login_required
+
 
 
 def home(request):
@@ -41,4 +43,22 @@ def create_post(request):
         return redirect('/main')
 
 
+@login_required
+def delete_post(request, id):
+    # 게시된 게시물들중에서 아이디가 로그인된 아이디를 가져온다.
+    my_post = PostModel.objects.get(id=id)
+    # 게시물을 삭제함
+    my_post.delete()
+    # 트윗url로 redirect시켜준다.
+    return redirect('/main')
 
+
+@login_required
+# 각 게시물에 들어갈 수 있는 기능
+def detail_post(request, id):
+    # 게시된 게시물의 아이디가 같은 것을 불러온다.
+    my_post = PostModel.objects.get(id=id)
+    # 게시물에 저장된 댓글들을 불러와야 한다. 불러 올때는 filter 메소드를 활용하여 댓글이 생성된 순으로 정렬하여 보여준다.
+    # tweet_comment = TweetComment.objects.filter(tweet_id=id).order_by('-created_at')
+    # 렌더링을 통해 아래 url로 이동한다. 해당 url로 이동할 때에 게시글과 댓글들을 함께 보내준다.
+    return render(request,'post/post_detail.html',{'post':my_post})

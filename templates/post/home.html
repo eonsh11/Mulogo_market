@@ -15,14 +15,16 @@
                                     {% if ps.user == user %}
                                         <div style="text-align: right">
                                             <a href="/main/delete/{{ ps.id }}">
-                                                {% comment %} <span class="badge rounded-pill bg-danger">삭제</span> {% endcomment %}
+                                                <span class="badge rounded-pill bg-danger">삭제</span> 
                                             </a>
                                         </div>
                                     {% endif %}
                                     <div style="text-align: right">
-                                        <a href="/main/{{ ps.id }}">
-                                            {% comment %} <span class="badge rounded-pill bg-success">보기</span> {% endcomment %}
-                                        </a>
+                                        <div style="text-align: right">
+                                            <a href="/main/{{ ps.id }}">
+                                                <span class="badge rounded-pill bg-success">보기</span>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="media">
                                         <div class="img-box">
