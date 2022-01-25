@@ -6,19 +6,27 @@
 {% block content %}
 
   <div class='container'>
-    <form>
+    <form action='/create-post/' method='post'>
       {% csrf_token %}
       <div class="form-floating mb-3 input">
-        <input type="email" class="form-control" id="floatingInput" placeholder="이미지url"/>
+        <input type="text" class="form-control" id="url" name="url" placeholder="이미지url"/>
         <label for="floatingInput">이미지 URL</label>
       </div>
       <div class="form-floating mb-3 input">
-        <input type="text" class="form-control" id="title" placeholder="상품이름"/>
+        <input type="text" class="form-control" id="title" name="title" placeholder="상품이름"/>
         <label for="floatingInput">글 제목</label>
       </div>
       <div class="form-floating mb-3 input">
-        <input type="text" class="form-control" id="content" placeholder="내용"/>
+        <input type="text" class="form-control" id="content" name="content" placeholder="내용"/>
         <label for="floatingInput">글 내용</label>
+      </div>
+      <div class='btn-wrapper container'>
+        {% if error %}
+          <div class="alert alert-light" role="alert">
+            {{ error }}
+          </div>
+        {% endif %}
+        <button type="submit" class="btn btn-outline-warning">완료</button>
       </div>
     </form>
   </div>
