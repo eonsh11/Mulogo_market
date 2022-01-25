@@ -37,17 +37,6 @@
                                         <h5 class="mt-0">{{ post.content }}</h5>
                                         <img src="{{ post.photo }}" class="img rounded" alt="...">
                                         
-                                        {% comment %} {% if tweet.tags.all %}
-                                            {% for tag in tweet.tags.all %}
-                                                <a style="text-decoration: none" href="{% url 'tagged_object_list' tag.name %}">
-                                                    <span class="badge rounded-pill bg-success">
-                                                        {{ tag.name }}
-                                                    </span>
-                                                </a>
-                                            {% endfor %}
-                                            -<a style="text-decoration: none"
-                                                href="{% url 'tag_cloud' %}">TagCloud</a>
-                                        {% endif %} {% endcomment %}
                                     </div>
                                     <div style="text-align: right">
                                         <span style="font-size: small">{{ post.user.username }}-{{ post.created_at|timesince }} 전</span>
@@ -57,26 +46,25 @@
                         </div>
                     </div>
                 </div>
-                <!-- 글 작성 하는 곳 -->
-                {% comment %} <form class="input-group mb-3" action="/tweet/comment/{{ tweet.id }}" method="post">
+                <form class="input-group mb-3" action="/main/comment/{{ post.id }}" method="post">
                     {% csrf_token %}
                     <input type="text" class="form-control" id='comment' name='comment' placeholder="댓글을 작성 해 주세요"/>
                     <button class="btn btn-outline-secondary" type="submit">작성</button>
-                </form> {% endcomment %}
+                </form>
                 <hr>
                 <!-- 반복문이 들어 갈 곳 -->
-                {% comment %} {% for cm in comment %}
+                {% for cm in comment %}
                     <div class="row">
                         <div class="col-md-12">
                             <div class="media">
                                 <div class="media-body">
                                     <h5 class="mt-0"> {{ cm.comment }} </h5>
-                                    <span> {{ cm.author }} </span>
+                                    <span> {{ cm.user }} </span>
                                     <span> - {{ cm.created_at | timesince }} 전</span>
                                 </div>
-                                {% if cm.author == user %}
+                                {% if cm.user == user %}
                                     <div style="float: right">
-                                        <a href="/tweet/comment/delete/{{ cm.id }}">
+                                        <a href="/main/comment/delete/{{ cm.id }}">
                                             <span class="badge bg-danger">삭제</span>
                                         </a>
                                     </div>
@@ -85,7 +73,7 @@
                         </div>
                     </div>
                     <hr>
-                {% endfor %} {% endcomment %}
+                {% endfor %}
                 <!-- 반복문이 끝난 곳 -->
             </div>
         </div>

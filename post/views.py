@@ -1,6 +1,7 @@
 from django.http import request
 from django.shortcuts import render, redirect
 from .models import PostModel
+from .models import PostComment
 from django.contrib.auth.decorators import login_required
 
 
@@ -62,3 +63,40 @@ def detail_post(request, id):
     # tweet_comment = TweetComment.objects.filter(tweet_id=id).order_by('-created_at')
     # 렌더링을 통해 아래 url로 이동한다. 해당 url로 이동할 때에 게시글과 댓글들을 함께 보내준다.
     return render(request,'post/post_detail.html',{'post':my_post})
+
+
+@login_required
+# 댓글을 쓰는 기능(인자로 id를 넘겨준다.)
+def write_comment(request, id):
+    # 만약 데이터전송 방식이 POST라면
+    if request.method == 'POST':
+        # 댓글을 저장한다.
+        comment = request.POST.get("comment","")
+        # 작성자가 작성한 댓글을 모두 불러온다.
+        current_post = PostModel.objects.get(id=id)
+        # 모델을 임포트해와서 TweetComment클래스를 이요하여 객체를 생성한다.
+        PS = PostComment()
+        # 댓글정보
+        PS.comment = comment
+        # 작성자 정보
+        PS.user = request.user
+        # 댓글을 작성하는 게시글 정보
+        PS.post = current_post
+        # 저장한다. save()메소드
+        PS.save()
+        # redirect를 이용하여 tweet/ 지금 작성하고있는 게시글을 붙여준다. 타입 str로 변환
+        return redirect('/main/'+str(id))
+
+
+@login_required
+# 댓글을 삭제하는 기능 
+# 내가 작성한 댓글들임을 알아야 하기 때문에 id를 인자로 받는다.
+def delete_comment(request, id):
+    # 나의 id로 작성한 댓글을 변수에 할당
+    comment = PostComment.objects.get(id=id)
+    # 내가 작성한 댓글의 게시물의 id를 변수에 할당
+    current_post = comment.post.id
+    # 해당 댓글을 삭제하는 delete()메소드 활용
+    comment.delete()
+    # 다시 해당 게시물의 url주소로 이동
+    return redirect('/main/'+str(current_post))
