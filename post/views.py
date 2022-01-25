@@ -1,3 +1,4 @@
+from django.http import request
 from django.shortcuts import render, redirect
 
 
@@ -9,5 +10,5 @@ def home(request):
         return redirect('/sign-in')
 
 
-def main():
-    return redirect('/')
+def main(request):
+    return render(request, 'post/home.html')
