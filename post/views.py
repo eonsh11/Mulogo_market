@@ -12,3 +12,11 @@ def home(request):
 
 def main(request):
     return render(request, 'post/home.html')
+
+
+def create_post(request):
+    if request.method == "GET":
+        return render(request, 'post/create-post.html')
+    elif request.method == "POST":
+
+        return redirect('/main')

@@ -14,3 +14,7 @@
     bottom: 150px;
 }
 
+.plus-btn:hover{
+    color: white;
+    background-color: #ff8000;
+}

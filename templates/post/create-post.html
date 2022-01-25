@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}
+  상품 올리기
+{% endblock %}
+
+{% block content %}
+
+  <div class='container'>
+    <form>
+      {% csrf_token %}
+      <div class="form-floating mb-3 input">
+        <input type="email" class="form-control" id="floatingInput" placeholder="이미지url"/>
+        <label for="floatingInput">이미지 URL</label>
+      </div>
+      <div class="form-floating mb-3 input">
+        <input type="text" class="form-control" id="title" placeholder="상품이름"/>
+        <label for="floatingInput">글 제목</label>
+      </div>
+      <div class="form-floating mb-3 input">
+        <input type="text" class="form-control" id="content" placeholder="내용"/>
+        <label for="floatingInput">글 내용</label>
+      </div>
+    </form>
+  </div>
+{% endblock %}
