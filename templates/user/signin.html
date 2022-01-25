@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
   로그인
 {% endblock %}
 {% block content %}
   <div class="container">
     <div class="wrap">
+      <img class='logo' src="{% static '/img/logo.png' %}"/>
       <h2 class="title-center">
         로그인</h2>
       <form class="form-area" method="post" action="/sign-in/">

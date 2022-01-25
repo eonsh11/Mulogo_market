@@ -1,9 +1,16 @@
+.logo{
+    width: 100%;
+}
+
+
 .color-btn{
+    color: white;
     background-color: #FF893D;
     border: none;
 }
 
 .color-btn:hover{
+    color: white;
     opacity: 0.8;
     background-color: #FF893D;
 }
